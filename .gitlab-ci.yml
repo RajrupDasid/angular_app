@@ -1,0 +1,7 @@
+stages:
+  - development
+install node support:
+  image: node:current-alpine
+  stage: development
+  script:
+    - npm install
