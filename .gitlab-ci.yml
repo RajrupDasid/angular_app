@@ -1,7 +1,16 @@
 stages:
   - development
-install node support:
+  - test
+install angular support:
   image: node:current-alpine
   stage: development
   script:
-    - npm install
+    - npm ci
+testing angular:
+  image:  node:current-alpine
+  stage: test
+  before_script:
+    - apk add firefox
+  script:
+    - npm ci
+    - npm run test -- --no-watch --no-progress --browsers=FirefoxHeadless
