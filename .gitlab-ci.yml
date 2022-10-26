@@ -5,22 +5,13 @@ install angular support:
   image: node:current-alpine
   stage: development
   script:
-    - npm install -g @angular/cli@latest
-    - npm install
-    - ng build
+    - npm ci
   artifacts:
     paths:
       - dist
 testing angular:
   image: node:current-alpine
   stage: test
-  before_script:
-    - apt-get update
-    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    - apt install -y ./google-chrome*.deb;
-    - export CHROME_BIN=/usr/bin/google-chrome
   script:
-    - npm install -g @angular/cli@latest
-    - npm install
-    - ng build
-    - npm run test -- --no-watch --no-progress --browsers="ChromeHeadlessCI"
+    - npm ci
+    - npm run test -- --no-watch --no-progress --browsers= FirefoxHeadless
