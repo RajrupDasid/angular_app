@@ -10,7 +10,8 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
-      require('@angular-devkit/build-angular/plugins/karma')
+      require('@angular-devkit/build-angular/plugins/karma'),
+      require('karma-firefox-launcher'),
     ],
     client: {
       jasmine: {
@@ -37,16 +38,13 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers:  ['FirefoxHeadless'],
-    customLaunchers: {
+    browsers:  ['Firefox'],
+     customLaunchers: {
             'FirefoxHeadless': {
                 base: 'Firefox',
                 flags: [
                     '-headless',
                 ],
-                prefs: {
-                    'network.proxy.type': 0
-                }
             }
         },
     singleRun: true,
