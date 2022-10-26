@@ -6,9 +6,6 @@ install angular support:
   stage: development
   script:
     - npm ci
-  artifacts:
-    paths:
-      - dist
 testing angular:
   image: node:current-alpine
   stage: test
