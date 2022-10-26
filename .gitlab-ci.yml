@@ -15,6 +15,7 @@ testing angular:
   image: node:current-alpine
   stage: test
   script:
+    - npm install -g @angular/cli@latest
     - npm install
     - ng build
     - ng test
