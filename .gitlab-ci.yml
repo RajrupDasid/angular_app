@@ -7,8 +7,9 @@ install angular support:
   script:
     - npm ci
 testing angular:
-  image: node:current-alpine
+  image: archlinux:latest
   stage: test
   script:
+    - pacman -S nodejs npm Firefox
     - npm ci
     - npm run test -- --no-watch --no-progress --browsers=FirefoxHeadless
