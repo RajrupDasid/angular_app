@@ -1,7 +1,20 @@
 stages:
   - development
-install node support:
+  - test
+install angular support:
   image: node:current-alpine
   stage: development
   script:
+    - npm install -g @angular/cli@latest
     - npm install
+    - ng build
+  artifacts:
+    paths:
+      - dist
+testing angular:
+  image: node:current-alpine
+  stage: test
+  script:
+    - npm install
+    - ng build
+    - ng test
