@@ -3,10 +3,12 @@ stages:
   - test
 install angular support:
   image: node:current-alpine
+  before_script:
+    - apk add firefox
   stage: development
   script:
     - npm ci
-testing angular:
+.testing angular:
   image:  node:14.15-stretch
   stage: test
   before_script:
