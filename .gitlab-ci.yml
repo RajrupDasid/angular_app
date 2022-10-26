@@ -11,6 +11,6 @@ testing angular:
   stage: test
   script:
     - pacman -Sy
-    - pacman -S nodejs npm Firefox
+    - pacman -S nodejs npm firefox
     - npm ci
     - npm run test -- --no-watch --no-progress --browsers=FirefoxHeadless
