@@ -7,8 +7,10 @@ install angular support:
   script:
     - npm ci
 testing angular:
-  image:  archlinux:latest
+  image:  node:14.15-stretch
   stage: test
+  before_script:
+    - apt-get update && apt-get upgrade --assume-yes
   script:
     - npm ci
     - npm run test -- --no-watch --no-progress --browsers=FirefoxHeadless
