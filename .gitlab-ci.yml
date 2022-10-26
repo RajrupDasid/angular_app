@@ -3,16 +3,14 @@ stages:
   - test
 install angular support:
   image: node:current-alpine
-  before_script:
-    - apk add firefox
   stage: development
   script:
     - npm ci
-.testing angular:
-  image:  node:14.15-stretch
+testing angular:
+  image:  node:current-alpine
   stage: test
   before_script:
-    - apt-get update && apt-get upgrade --assume-yes
+    - apk add firefox
   script:
     - npm ci
     - npm run test -- --no-watch --no-progress --browsers=FirefoxHeadless
