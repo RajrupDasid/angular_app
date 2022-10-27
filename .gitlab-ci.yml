@@ -2,12 +2,12 @@ stages:
   - development
   - test
   - docker-ci
-.install angular support:
+install angular support:
   image: node:current-alpine
   stage: development
   script:
     - npm ci
-.testing angular:
+testing angular:
   image:  node:current-alpine
   stage: test
   before_script:
