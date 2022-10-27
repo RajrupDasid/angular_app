@@ -9,13 +9,15 @@ stages:
 - development
 - test
 - docker-ci
-- master
+- depedencytest
 install angular support:
   image: node:current-alpine
   stage: development
   script:
   - npm ci
 testing angular:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
   image: node:current-alpine
   stage: test
   before_script:
@@ -28,6 +30,8 @@ docker testing:
   stage: docker-ci
   services:
   - docker:20.10.16-dind
+  rules: 
+    - if: $CI_PIPELINE_SOURCE == "schedule"
   before_script:
   - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
   script:
@@ -37,7 +41,7 @@ docker testing:
 sast:
   variables:
     SEARCH_MAX_DEPTH: '50'
-  stage: master
+  stage: dependencytest
 include:
 - template: Security/SAST.gitlab-ci.yml
 - template: Security/Dependency-Scanning.gitlab-ci.yml
