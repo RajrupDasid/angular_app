@@ -1,6 +1,6 @@
 FROM node:current-alpine
 
-COPY ./app
+COPY . /app
 WORKDIR /app
 
 RUN npm install -g @angular/cli && \
