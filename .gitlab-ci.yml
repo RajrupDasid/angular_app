@@ -9,7 +9,7 @@ stages:
   - development
   - test
   - docker-ci
-  - depedencytest
+  - betatests
 install angular support:
   image: node:current-alpine
   stage: development
@@ -41,7 +41,7 @@ docker testing:
 sast:
   variables:
     SEARCH_MAX_DEPTH: '50'
-  stage: dependencytest
+  stage: betatests
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Dependency-Scanning.gitlab-ci.yml
