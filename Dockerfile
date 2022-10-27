@@ -1,4 +1,4 @@
-RUN node:current-alpine
+FROM node:current-alpine
 
 COPY .
 WORKDIR .
