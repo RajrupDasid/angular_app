@@ -1,6 +1,7 @@
 stages:
   - development
   - test
+  - docker-ci
 install angular support:
   image: node:current-alpine
   stage: development
@@ -14,3 +15,14 @@ testing angular:
   script:
     - npm ci
     - npm run test -- --no-watch --no-progress --browsers=FirefoxHeadless
+docker testing:
+  image: docker:20.10.16
+  stage: docker-ci
+  services:
+    - docker:20.10.16-dind
+  before_script:
+    - docker login --username $DOCKER_USERNAME --password DOCKER_PASSWORD
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker images
+    - docker push $IMAGE_TAG
