@@ -1,7 +1,7 @@
 FROM node:current-alpine
 
-COPY .
-WORKDIR .
+COPY ./app
+WORKDIR /app
 
 RUN npm install -g @angular/cli && \
     npm install  && \
