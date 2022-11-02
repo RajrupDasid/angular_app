@@ -15,7 +15,7 @@ install angular support:
   stage: development
   script:
     - npm ci
-testing angular:
+.testing angular:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
   image: node:current-alpine
