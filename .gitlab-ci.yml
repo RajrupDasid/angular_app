@@ -9,6 +9,7 @@ stages:
   - development
   - test
   - docker-ci
+.install angular support:
   - betatests
 install angular support:
   image: node:current-alpine
@@ -16,6 +17,7 @@ install angular support:
   script:
     - npm ci
 .testing angular:
+  image:  node:current-alpine
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
   image: node:current-alpine
@@ -45,3 +47,4 @@ sast:
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Dependency-Scanning.gitlab-ci.yml
+
