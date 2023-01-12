@@ -1,14 +1,26 @@
+# You can override the included template(s) by including variable overrides
+# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
+# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
+# Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
+# Note that environment variables can be set in several places
+# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
   - development
   - test
   - docker-ci
 .install angular support:
+  - betatests
+install angular support:
   image: node:current-alpine
   stage: development
   script:
     - npm ci
 .testing angular:
   image:  node:current-alpine
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+  image: node:current-alpine
   stage: test
   before_script:
     - apk add firefox
@@ -20,9 +32,19 @@ docker testing:
   stage: docker-ci
   services:
     - docker:20.10.16-dind
+  rules: 
+    - if: $CI_PIPELINE_SOURCE == "schedule"
   before_script:
     - docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
   script:
     - docker build -t $IMAGE_TAG .
     - docker images
     - docker push $IMAGE_TAG
+sast:
+  variables:
+    SEARCH_MAX_DEPTH: '50'
+  stage: betatests
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+
